@@ -1,0 +1,60 @@
+/*
+* Copyright © 2020. TIBCO Software Inc.
+* This file is subject to the license terms contained
+* in the license file that is distributed with this file.
+*/
+
+body {
+    margin: 0;
+}
+
+#fullContainer {
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    height: 100vh;
+}
+#customTable {
+    background-color: white;
+    color: #4f4f4f;
+    width: 99.9%;
+}
+
+#customTable, 
+tr, 
+td, 
+th {
+    padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+    border-right: 1px solid gainsboro;
+    border-left: 1px solid gainsboro;
+    border-collapse: collapse;
+}
+
+#customTable tbody tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+#customTable tbody tr .featured{
+    background-color: #E2E3EF;
+}
+
+#customTable tbody tr:hover{
+    background-color: #848DA7 !important;
+    color: white;
+}
+
+#customTable thead {
+    font-size: 12pt;
+}
+
+#customTable tbody {
+    font-size: 10pt;
+    
+}
+
+.oContact{
+    width: auto;
+    min-width: 100px;
+    /* border-right: 1px solid gainsboro; */
+    border-bottom: 1px solid rgba(220, 220, 220, 0.5);
+}
