@@ -67,15 +67,10 @@ Spotfire.initialize(async (mod) => {
         let processRows = function () {
             if (rows == null) return;
 
-            // Reset arrays
-            // data = [];
-            // dataA = [];
             data = [];
 
             // Iterate over rows and push into arrays
             rows.forEach(function (row) {
-                // data.push(row.categorical("col1").formattedValue());
-                // dataA.push(row.categorical("col2").formattedValue());
                 data.push(row.categorical("col1").formattedValue());
             });
         }
@@ -170,8 +165,6 @@ Spotfire.initialize(async (mod) => {
         });
 
 
-
-
         function tableGenerator(d) {
 
             let table = document.getElementById("customTable")
@@ -192,7 +185,7 @@ Spotfire.initialize(async (mod) => {
             }
             // * CONFIGURE THE DATA KEY FOR REPEATED RECORDS
 
-            // --- Encontramos los valores de las categoría para futura combinación de filas
+            // --- We find unique values of categories
             var uniqueElement = []
             var row = 0
 
@@ -212,17 +205,20 @@ Spotfire.initialize(async (mod) => {
                     uniqueElement.push(element)
 
                     let newTd = document.createElement("td")
-                    let newA = document.createElement("a")
-                    newA.setAttribute('class', 'links')
-                    newA.setAttribute('target', '_blank')
-                    newA.setAttribute('sandbox', 'allow-popups')
-                    newA.setAttribute('href', `${providerStreamsLink+auxData[4]}`)
-                    newA.append(document.createTextNode(auxData[4]))
+
+                    // ** To add links, uncomment this code
+                        //let newA = document.createElement("a")
+                        //newA.setAttribute('class', 'links')
+                        //newA.setAttribute('target', '_blank')
+
+                        //newA.setAttribute('href', `${providerStreamsLink+auxData[4]}`)
+                        //newA.append(document.createTextNode(auxData[4]))
+                        //newTd.appendChild(newA)
 
                     newTd.setAttribute('rowSpan', `${cantRep}`)
                     newTd.setAttribute('class', 'oContact')
-                    //newTd.append(document.createTextNode(auxData[4]))
-                    newTd.appendChild(newA)
+
+                    newTd.append(document.createTextNode(auxData[4]))
                     newBodyTr.appendChild(newTd)
 
                     for (var i = 0; i < auxData.length - 1; i++) {
