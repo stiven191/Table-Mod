@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+.links{
+    color: #848DA7;
+}
+
 #fullContainer {
     overflow-y: auto;
     overflow-x: auto;
@@ -16,7 +20,7 @@ body {
 }
 #customTable {
     background-color: white;
-    color: #4f4f4f;
+    color: #4f4f4f ;
     width: 99.9%;
 }
 
@@ -38,7 +42,7 @@ th {
     background-color: #E2E3EF;
 }
 
-#customTable tbody tr:hover{
+#customTable tbody tr:hover, #customTable tbody tr:hover .links{
     background-color: #848DA7 !important;
     color: white;
 }

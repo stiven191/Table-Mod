@@ -25,6 +25,10 @@ Spotfire.initialize(async (mod) => {
      */
     const context = mod.getRenderContext();
 
+    /** Get document properties */
+    let providerStreamsLink = (await mod.document.property('ProviderStreamsLink')).value()
+    providerStreamsLink = String(providerStreamsLink).replace("{$}", "");
+
     //----------------------------------------------------
 
     let rows = null;
@@ -101,7 +105,6 @@ Spotfire.initialize(async (mod) => {
         }
 
         let dataOrder = sortBy(dataObj)
-        console.log(dataOrder);
 
         //* Get the highest hierarchy values and separate them into two arrays and sort the second array by the next hierarchy level
         // Reset arrays
@@ -178,7 +181,7 @@ Spotfire.initialize(async (mod) => {
             var newTbody = document.createElement("tbody")
 
             //HEADERS
-            let headers = ["NPI","First Name", "Middle Name", "Last Name", "Certification", "Job Function", "Email", "Location Phone"]
+            let headers = ["NPI", "First Name", "Middle Name", "Last Name", "Certification", "Job Function", "Email", "Location Phone"]
             var tr = document.createElement("tr")
 
             for (let i = 0; i < headers.length; i++) {
@@ -210,28 +213,50 @@ Spotfire.initialize(async (mod) => {
 
                     let newTd = document.createElement("td")
                     let newA = document.createElement("a")
+                    newA.setAttribute('class', 'links')
+                    newA.setAttribute('target', '_blank')
+                    newA.setAttribute('sandbox', 'allow-popups')
+                    newA.setAttribute('href', `${providerStreamsLink+auxData[4]}`)
+                    newA.append(document.createTextNode(auxData[4]))
 
                     newTd.setAttribute('rowSpan', `${cantRep}`)
                     newTd.setAttribute('class', 'oContact')
-                    newTd.append(document.createTextNode(auxData[4]))
+                    //newTd.append(document.createTextNode(auxData[4]))
+                    newTd.appendChild(newA)
                     newBodyTr.appendChild(newTd)
 
-                    for (var i = 0; i < auxData.length-1; i++) {
+                    for (var i = 0; i < auxData.length - 1; i++) {
                         let newTd = document.createElement("td")
-                        let newA = document.createElement("a")
+                        newTd.append(document.createTextNode(auxData[i]))
 
                         newTd.setAttribute('rowSpan', `${cantRep}`)
                         newTd.setAttribute('class', 'oContact')
-                        newTd.append(document.createTextNode(auxData[i]))
+
                         newBodyTr.appendChild(newTd)
                     }
 
                     for (var i = 0; i < auxData2.length; i++) {
                         let newTd2 = document.createElement("td")
-                        let newA = document.createElement("a")
+
+                        if (i == 1) {
+                            let newA = document.createElement("a")
+                            newA.setAttribute('class', 'links')
+                            newA.setAttribute('href', `mailto: ${auxData2[i]}`)
+                            newA.append(document.createTextNode(auxData2[i]))
+                            newTd2.appendChild(newA)
+                        }
+                        else if (i == 2) {
+                            let newA = document.createElement("a")
+                            newA.setAttribute('class', 'links')
+                            newA.setAttribute('href', `tel: ${auxData2[i]}`)
+                            newA.append(document.createTextNode(auxData2[i]))
+                            newTd2.appendChild(newA)
+                        }
+                        else {
+                            newTd2.append(document.createTextNode(auxData2[i]))
+                        }
 
                         newTd2.setAttribute('class', 'oContact')
-                        newTd2.append(document.createTextNode(auxData2[i]))
                         newBodyTr.appendChild(newTd2)
                     }
                 }
@@ -255,6 +280,7 @@ Spotfire.initialize(async (mod) => {
         }
 
         tableGenerator(dataA)
+        
         // --- line for fixed headers and columns
         // @ts-ignore
         $("#customTable").tableHeadFixer({ 'left': 0, 'head': true });
