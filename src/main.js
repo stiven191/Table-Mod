@@ -260,10 +260,24 @@ Spotfire.initialize(async (mod) => {
                 else {
                     for (var i = 0; i < auxData2.length; i++) {
                         let newTd2 = document.createElement("td")
-                        let newA = document.createElement("a")
-
+                        if (i == 1) {
+                            let newA = document.createElement("a")
+                            newA.setAttribute('class', 'links')
+                            newA.setAttribute('href', `mailto: ${auxData2[i]}`)
+                            newA.append(document.createTextNode(auxData2[i]))
+                            newTd2.appendChild(newA)
+                        }
+                        else if (i == 2) {
+                            let newA = document.createElement("a")
+                            newA.setAttribute('class', 'links')
+                            newA.setAttribute('href', `tel: ${auxData2[i]}`)
+                            newA.append(document.createTextNode(auxData2[i]))
+                            newTd2.appendChild(newA)
+                        }
+                        else {
+                            newTd2.append(document.createTextNode(auxData2[i]))
+                        }
                         newTd2.setAttribute('class', 'oContact')
-                        newTd2.append(document.createTextNode(auxData2[i]))
                         newBodyTr.appendChild(newTd2)
                     }
                 }
